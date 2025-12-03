@@ -1,0 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Mudamos de postgres para sqlite para facilitar
+  url      = env("DATABASE_URL")
+}
+
+// Aqui vocês criarão as Models depois (Ex: model Usuario {})
