@@ -1,15 +1,17 @@
-'use client'; // Adicionar pois usa hooks do React
+'use client'; // Adicionar no topo pois é um Client Component
 
-import { useState } from 'react';
-import { Dashboard } from '../src/core/interfaces/Dashboard';
-import { Schedule } from '../src/core/interfaces/Schedule';
-import { Sidebar } from '../src/core/interfaces/Sidebar';
-import { MobileNav } from '../src/core/interfaces/MobileNav';
-import { StudyModal } from '../src/core/interfaces/StudyModal';
-import { Subjects } from '../src/core/interfaces/Subjects';
-import { Analytics } from '../src/core/interfaces/Analytics';
+import { ReactNode, useState } from 'react';
+import { Dashboard } from './src/core/interfaces/Dashboard';
+import { Schedule } from './src/core/interfaces/Schedule';
+import { Sidebar } from './src/core/interfaces/Sidebar';
+import { MobileNav } from './src/core/interfaces/MobileNav';
+import { StudyModal } from './src/core/interfaces/StudyModal';
+import { Subjects } from './src/core/interfaces/Subjects';
+import { Analytics } from './src/core/interfaces/Analytics';
+import './styles/globals.css';
 
 export interface Revision {
+  [x: string]: ReactNode;
   id: string;
   title: string;
   subject: string;
@@ -17,7 +19,7 @@ export interface Revision {
   completed: boolean;
 }
 
-export default function Home() {
+export default function App() {
   const [currentView, setCurrentView] = useState('dashboard');
   const [isStudyModalOpen, setIsStudyModalOpen] = useState(false);
   const [revisions, setRevisions] = useState<Revision[]>([
@@ -123,7 +125,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Desktop Layout */}
       <div className="hidden md:flex h-screen">
         <Sidebar currentView={currentView} onNavigate={setCurrentView} />
