@@ -1,10 +1,40 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "sqlite" // Mudamos de postgres para sqlite para facilitar
-  url      = env("DATABASE_URL")
+model Discipline {
+id          String   @id @default(uuid())
+  nome        String
+  usuarioId   String
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  dataCriacao DateTime @default(now())
+
+  @@map("disciplinas")
 }
 
-// Aqui vocês criarão as Models depois (Ex: model Usuario {})
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  password    String
+  course      String?
+  institution String?
+  semester    Int?
+  avatar      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamento
+  disciplinas Disciplina[]
+  
+  @@map("usuarios")
+}
+
+

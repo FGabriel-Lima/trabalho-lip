@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📘 StudySpace - Dashboard de Gestão de Estudos
 
-## Getting Started
+O **StudySpace** é uma plataforma desenvolvida para centralizar a gestão do progresso acadêmico. Este projeto foi concebido dentro do contexto acadêmico de engenharia de software para oferecer uma visão clara sobre disciplinas e carga horária de estudos.
 
-First, run the development server:
+---
 
+## 🚀 Tecnologias
+
+A aplicação utiliza uma stack moderna e robusta para garantir alta performance e facilidade de manutenção:
+
+* **Framework:** Next.js 15+ (com Turbopack).
+* **UI/UX:** shadcn/ui & Tailwind CSS.
+* **ORM:** Prisma ORM.
+* **Banco de Dados:** SQLite (Armazenamento local em arquivo `.db`).
+* **Iconografia:** Lucide React.
+
+---
+
+## 🛠️ Configuração do Ambiente
+
+Siga as instruções abaixo para rodar o projeto localmente:
+
+### 1. Clonar o repositório
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/seu-usuario/study-space.git](https://github.com/seu-usuario/study-space.git)
+cd study-space
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar as dependências
+```Bash
+npm install
+```
+### 3. Configurar as Variáveis de Ambiente
+Crie um arquivo .env na raiz do projeto:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```.env
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+DATABASE_URL="file:./dev.db"
+```
+### 4. Inicializar o Banco de Dados (Prisma)
+Como o projeto utiliza SQLite, você precisa gerar o cliente e rodar as migrações iniciais:
 
-## Learn More
+```Bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+### 5. Executar o servidor
+```Bash
+npm run dev
+```
+Acesse http://localhost:3000 no seu navegador.
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Comandos Úteis
+``npx prisma studio``: Abre uma interface web para visualizar e editar os dados do seu banco SQLite local.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+``npx prisma migrate dev``: Aplica novas alterações feitas no arquivo schema.prisma ao banco de dados.
