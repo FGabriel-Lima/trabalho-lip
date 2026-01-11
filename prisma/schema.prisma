@@ -10,11 +10,13 @@ generator client {
 }
 
 model Discipline {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+id          String   @id @default(uuid())
+  nome        String
+  usuarioId   String
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  dataCriacao DateTime @default(now())
+
+  @@map("disciplinas")
 }
 
 model User {
@@ -25,8 +27,14 @@ model User {
   course      String?
   institution String?
   semester    Int?
+  avatar      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  // Relacionamento
+  disciplinas Disciplina[]
+  
+  @@map("usuarios")
 }
 
 
