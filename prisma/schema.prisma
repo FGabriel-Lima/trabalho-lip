@@ -1,7 +1,7 @@
 // prisma/schema.prisma
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -16,3 +16,17 @@ model Discipline {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  password    String
+  course      String?
+  institution String?
+  semester    Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
