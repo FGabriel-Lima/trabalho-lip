@@ -1,40 +1,69 @@
 // prisma/schema.prisma
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model Discipline {
-id          String   @id @default(uuid())
-  nome        String
-  usuarioId   String
-  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  dataCriacao DateTime @default(now())
-
-  @@map("disciplinas")
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id          String   @id @default(cuid())
   email       String   @unique
   name        String?
-  password    String
+  avatar      String?
   course      String?
   institution String?
-  semester    Int?
-  avatar      String?
+  semester    String?
+  password    String?
+  role        String   @default("STUDENT")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // Relacionamento
-  disciplinas Disciplina[]
-  
-  @@map("usuarios")
+  // Relacionamentos
+  disciplines Discipline[]
+  revisions   Revision[]
+
+  @@map("users")
 }
 
+model Discipline {
+  id             String   @id @default(uuid())
+  name           String
+  icon           String   @default("book")
+  color          String   @default("blue")
+  description    String?
+  totalHours     Int      @default(0)
+  revisionsDone  Int      @default(0)
+  revisionsTotal Int      @default(0)
+  progress       Int      @default(0)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relacionamento: Uma disciplina tem muitas revisões
+  revisions      Revision[]
+
+  @@map("disciplines")
+}
+
+model Revision {
+  id              String     @id @default(uuid())
+  topic           String
+  date            DateTime
+  difficulty      String     @default("Médio")
+  completed       Boolean    @default(false)
+  durationMinutes Int?
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  disciplineId    String?
+  discipline      Discipline? @relation(fields: [disciplineId], references: [id], onDelete: SetNull)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("revisions")
+}
 

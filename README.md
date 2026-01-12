@@ -11,7 +11,7 @@ A aplicação utiliza uma stack moderna e robusta para garantir alta performance
 * **Framework:** Next.js 15+ (com Turbopack).
 * **UI/UX:** shadcn/ui & Tailwind CSS.
 * **ORM:** Prisma ORM.
-* **Banco de Dados:** SQLite (Armazenamento local em arquivo `.db`).
+* **Banco de Dados:** Postgres.
 * **Iconografia:** Lucide React.
 
 ---
@@ -19,12 +19,6 @@ A aplicação utiliza uma stack moderna e robusta para garantir alta performance
 ## 🛠️ Configuração do Ambiente
 
 Siga as instruções abaixo para rodar o projeto localmente:
-
-### 1. Clonar o repositório
-```bash
-git clone [https://github.com/seu-usuario/study-space.git](https://github.com/seu-usuario/study-space.git)
-cd study-space
-```
 
 ### 2. Instalar as dependências
 ```Bash
@@ -35,7 +29,7 @@ Crie um arquivo .env na raiz do projeto:
 
 ```.env
 
-DATABASE_URL="file:./dev.db"
+DATABASE_URL=""
 ```
 ### 4. Inicializar o Banco de Dados (Prisma)
 Como o projeto utiliza SQLite, você precisa gerar o cliente e rodar as migrações iniciais:
